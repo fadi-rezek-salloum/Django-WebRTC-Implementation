@@ -1,0 +1,122 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <script>
+        let myName;
+    </script>
+
+    <div>
+        <div>
+            <div id="userName">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 300px;">
+                    <input placeholder="What should we call you?" class="form-control" id="userNameInput">
+                    <button onclick="login()" class="actionButton btn btn-primary mt-3">Login</button>
+                </div>
+            </div>
+
+            <div id="userInfo">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 300px;">
+                    <h1>Hello, <span id="nameHere"></span></h1>
+                </div>
+
+            </div>
+
+            <div id="call">
+                <div class="dialWrapper">
+                    <input placeholder="Whom to call?" class="form-control" type="text" name="callName" id="callName">
+                    <div class="dialNumpadHWrapper">
+                        <div class="dialNumber">
+                        </div>
+                        <div class="dialNumber">
+                            <button class="dialActionButton btn btn-primary mt-3" onclick="call()">Call</button>
+                        </div>
+                        <div class="dialNumber">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="answer">
+                <div class="incomingWrapper">
+                    <div class="itemWrapper">
+                        <h2>Incomming Call</h2>
+                    </div>
+                    <div class="itemWrapper">
+                        <h2 class="my-3"><span id="callerName"></span></h2>
+                    </div>
+                    <div class="itemWrapper" style="display: flex; flex-direction: row; margin-bottom: 20px;">
+                        <button class="actionButton btn btn-success" onclick="answer()">Answer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- to show outgoing call -->
+            <div id="calling">
+                <div class="incomingWrapper">
+                    <div class="itemWrapper">
+                        <h2>Calling</h2>
+                    </div>
+                    <div class="itemWrapper">
+                        <h3 style="line-height: 0px;"><span id="otherUserNameCA"></span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div id="inCall">
+                <div class="incomingWrapper">
+                    <div class="itemWrapper">
+                        <h3>On Call With</h3>
+                        <h2 style="line-height: 0px;"><span id="otherUserNameC"></span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div id="videos">
+                <div style="position:absolute; top:0; right:0; padding-right: 20px; padding-top: 20px">
+                    <video width="100px" id="localVideo" autoplay muted playsinline></video>
+                </div>
+                <div id="remoteVideoDiv">
+                    <video style="width: 500px;" id="remoteVideo" autoplay playsinline></video>
+                </div>
+            </div>
+            <div style="flex-grow: 1;">
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div style="flex-grow: 1;">
+    </div>
+    <script>
+        document.getElementById("call").style.display = "none";
+        document.getElementById("userInfo").style.display = "none";
+        document.getElementById("answer").style.display = "none";
+        document.getElementById("inCall").style.display = "none";
+        document.getElementById("calling").style.display = "none";
+        document.getElementById("videos").style.display = "none";
+
+    </script>
+    <script>
+        function login() {
+            let userName = document.getElementById("userNameInput").value;
+            myName = userName;
+            document.getElementById("userName").style.display = "none";
+            document.getElementById("call").style.display = "block";
+
+            document.getElementById("nameHere").innerHTML = userName;
+            document.getElementById("userInfo").style.display = "block";
+
+            connectSocket();
+        }
+    </script>
+
+{% endblock content %}
